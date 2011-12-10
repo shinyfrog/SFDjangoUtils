@@ -1,0 +1,38 @@
+{% load i18n %}
+
+{% load thumbnail %}
+
+<span class="current_file">
+    <span class="current_file_delete" id="SFFileID_{{file.id}}" url="/backoffice/sffile/delete/{{file.id}}/">delete</span>
+    <span class="current_file_label"></span>
+    <span class="current_file_link"><a href="{{file.permalink}}">{{file.filename}}</a></span>
+
+    {% if "image" in file.mime_type %}
+    <span class="current_file_image">
+        {% thumbnail file.file.file "200" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}
+    </span>
+    {% endif %}
+</span>
+
+<script>
+    $("#SFFileID_{{file.id}}").click(function () {
+        var element = $(this);
+        var url = element.attr('url');
+        var request = $.ajax(url, {dataType: "text"})
+        .success(function (o) {
+            var answer = $.parseJSON(o);
+            if (answer.success != "true") {
+                alert(answer.error);
+                return;
+            }
+            element.parent().empty().remove();
+        })
+        .error(function () {
+            alert("problemi di connessione");
+        });
+    });
+
+</script>
+

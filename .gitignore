@@ -1,0 +1,6 @@
+*.log
+*.pot
+*.py[co]
+.*.swo
+.*.swp
+.DS_Store
