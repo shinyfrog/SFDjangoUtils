@@ -20,8 +20,8 @@ class SFModelManager(models.Manager):
 
 
 class SFModel(models.Model):
-    created_by = models.ForeignKey(User, related_name = "%(class)s_created_by", blank = True, null = True, editable = True)
-    updated_by = models.ForeignKey(User, related_name = "%(class)s_updated_by", blank = True, null = True, editable = True)
+    created_by = models.ForeignKey(User, related_name = "%(app_label)s_%(class)s_created_by", blank = True, null = True, editable = True)
+    updated_by = models.ForeignKey(User, related_name = "%(app_label)s_%(class)s_updated_by", blank = True, null = True, editable = True)
     created_on = models.DateTimeField(auto_now_add = True)
     updated_on = models.DateTimeField(auto_now = True)
     active     = models.BooleanField(default = True)
