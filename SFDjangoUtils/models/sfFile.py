@@ -7,7 +7,7 @@ from django.contrib.contenttypes.models     import ContentType
 from django.contrib.contenttypes            import generic
 from django.contrib.auth.models             import User
 from SFDjangoUtils.middleware.threadlocals  import get_current_user
-from settings                               import MEDIA_ROOT, MEDIA_URL
+from django.conf import settings
 
 try:
     from settings import GENERIC_FILE_DIRECTORY
@@ -74,8 +74,8 @@ class SFFile(SFModel):
 
     def permalink(self):
         permalink = ""
-        filePath = self.file.path.replace(MEDIA_ROOT, "")
-        permalink = urljoin(MEDIA_URL, filePath[1:])
+        filePath = self.file.path.replace(settings.MEDIA_ROOT, "")
+        permalink = urljoin(settings.MEDIA_URL, filePath[1:])
 
         return permalink
 
